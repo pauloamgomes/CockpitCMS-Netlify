@@ -70,10 +70,10 @@
         <tr each="{deploy, $index in deploys}" class="{ deploy.state == 'error' ? 'uk-text-danger' : ''}">
           <td>
             <a onclick="{ showdeployDetails }" class="extrafields-indicator uk-text-nowrap">
-              <span class="uk-badge uk-text-small" if="{deploy.state !== 'building' && deploy.state !== 'error' && deploy.state !== 'ready' && deploy.state !== 'enqueued' && deploy.state !== 'uploaded' }"><i class="uk-icon-eye uk-icon-justify"></i>{ deploy.state }</span>
+              <span class="uk-badge uk-text-small" if="{!deploy.building && deploy.state !== 'error' && deploy.state !== 'ready' }"><i class="uk-icon-eye uk-icon-justify"></i>{ deploy.state }</span>
               <span class="uk-badge uk-text-small uk-badge-success" if="{deploy.state === 'ready'}"><i class="uk-icon-eye uk-icon-justify"></i>{ deploy.state }</span>
               <span class="uk-badge uk-text-small uk-badge-danger" if="{deploy.state === 'error'}"><i class="uk-icon-eye uk-icon-justify"></i>{ deploy.state }</span>
-              <span class="uk-badge uk-text-small uk-badge-warning" if="{deploy.state === 'building' || deploy.state === 'enqueued' || deploy.state === 'uploaded'}"><i class="uk-icon-spinner uk-icon-spin"></i>{ deploy.state }</span>
+              <span class="uk-badge uk-text-small uk-badge-warning" if="{deploy.building}"><i class="uk-icon-spinner uk-icon-spin"></i>{ deploy.state }</span>
             </a>
           </td>
           <td>{ deploy.title }</td>
