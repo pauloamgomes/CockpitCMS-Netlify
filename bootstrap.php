@@ -27,7 +27,7 @@ if (COCKPIT_ADMIN && !COCKPIT_API_REQUEST) {
       $ch = curl_init($url);
       curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
       curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-      curl_setopt($ch, CURLOPT_TIMEOUT, 1);
+      curl_setopt($ch, CURLOPT_TIMEOUT, 5);
       curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
       curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
@@ -44,8 +44,10 @@ if (COCKPIT_ADMIN && !COCKPIT_API_REQUEST) {
       // Parse dates and check if any deploy is on building status.
       $building = false;
       foreach ($deploys as $idx => $deploy) {
-        if (in_array($deploy->state, ['building', 'enqueued', 'uploaded'])) {
+        $deploys[$idx]->building = false;
+        if (in_array($deploy->state, ['building', 'enqueued', 'uploaded', 'uploaded', 'uploading', 'processing'])) {
           $building = true;
+          $deploys[$idx]->building = true;
         }
         $deploys[$idx]->created_at = date('Y-m-d H:i', strtotime($deploy->created_at));
         $deploys[$idx]->updated_at = date('Y-m-d H:i', strtotime($deploy->updated_at));
@@ -71,7 +73,7 @@ if (COCKPIT_ADMIN && !COCKPIT_API_REQUEST) {
       $ch = curl_init($url);
       curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
       curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-      curl_setopt($ch, CURLOPT_TIMEOUT, 1);
+      curl_setopt($ch, CURLOPT_TIMEOUT, 5);
       curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
       curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
