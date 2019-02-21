@@ -10,7 +10,7 @@ if (COCKPIT_ADMIN && !COCKPIT_API_REQUEST) {
   // Extend addon functions.
   $this->module('netlify')->extend([
     'fetchDeploys' => function ($limit = 50) {
-      $settings = $this->app->config['netlify'];
+      $settings = $this->app->config['netlify'] ?? FALSE;
 
       if (!$settings || !isset($settings['api_url'],
       $settings['site_id'],

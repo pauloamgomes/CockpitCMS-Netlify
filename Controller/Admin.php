@@ -22,8 +22,8 @@ class Admin extends AuthController
     $data = $this->app->module('netlify')->fetchDeploys();
 
     return $this->render('netlify:views/deploys/index.php', [
-      'deploys' => $data['deploys'],
-      'building' => $data['building'],
+      'deploys' => $data['deploys'] ?? [],
+      'building' => $data['building'] ?? FALSE,
     ]);
   }
 
