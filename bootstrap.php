@@ -20,6 +20,10 @@ if (COCKPIT_ADMIN && !COCKPIT_API_REQUEST) {
 
       $url = $settings['api_url'] . '/sites/' . $settings['site_id'] . '/deploys' . '?access_token=' . $settings['access_token'];
 
+      if (!empty($settings['branch'])) {
+        $url .= '&branch=' . $settings['branch'];
+      }
+
       $headers = [
         'Content-Type: application/json',
       ];

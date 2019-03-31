@@ -19,7 +19,10 @@ netlify:
   api_url: https://api.netlify.com/api/v1
   site_id: <site-id>
   access_token: <access-token>
+  branch: <branch-name>
 ```
+
+Branch is optional, if provided API will return only deploys for that branch.
 
 ### Permissions
 
