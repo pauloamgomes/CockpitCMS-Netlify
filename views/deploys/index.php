@@ -76,10 +76,10 @@
               <span class="uk-badge uk-text-small uk-badge-warning" if="{deploy.building}"><i class="uk-icon-spinner uk-icon-spin"></i>{ deploy.state }</span>
             </a>
           </td>
-          <td>{ deploy.title }</td>
+          <td>{ deploy.title } <span if="{deploy.deploy_ssl_url && deploy.deploy_time }"><a class="uk-button-small" href="{deploy.deploy_ssl_url}" target="_blank"><i class="uk-icon-link"></i> open</a></span></td>
           <td><span class="uk-badge uk-badge-outline uk-text-muted">{ deploy.created_at }</span></td>
           <td><span class="uk-badge uk-badge-outline uk-text-muted">{ deploy.updated_at }</span></td>
-          <td><span if="{deploy.deploy_time}">{ deploy.deploy_time }s</span></td>
+          <td><span if="{deploy.deploy_time}">{ formatDuration(deploy.deploy_time) }</span></td>
           <td class="deploy-thumb">
             <a data-uk-lightbox="type:'image'" href="{ deploy.screenshot_url }" title="deploy screenshot: { deploy.title }" if="{deploy.screenshot_url}">
               <cp-thumbnail src="{ deploy.screenshot_url }" width="72" height="48"></cp-thumbnail>
@@ -154,6 +154,18 @@
         }
         $this.update();
       });
+    }
+
+    formatDuration(seconds) {
+      if (!seconds) {
+        return "";
+      }
+      var minutes = Math.floor(seconds / 60);
+      seconds = seconds % 60;
+      var hours = Math.floor(minutes / 60)
+      minutes = minutes % 60;
+      var formattedHours = (hours > 0) ? `${("0"+hours).slice(-2)}h:` : "";
+      return `${formattedHours}${("0"+minutes).slice(-2)}m:${("0"+seconds).slice(-2)}s`;
     }
 
   </script>
