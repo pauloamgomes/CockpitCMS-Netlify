@@ -15,7 +15,7 @@ $app->on('admin.init', function () use ($app) {
   // Bind admin routes.
   $this->bindClass('Netlify\\Controller\\Admin', 'netlify/deploys');
 
-  if ($app->module('cockpit')->hasaccess('netlify', 'deploys.view')) {
+  if ($app->module('cockpit')->hasaccess('netlify', 'manage.view')) {
     // Add to modules menu.
     $this('admin')->addMenuItem('modules', [
       'label' => 'Netlify Deploys',
