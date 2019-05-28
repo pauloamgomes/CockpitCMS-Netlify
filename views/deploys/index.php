@@ -148,7 +148,7 @@
           $this.building = data.result.building;
           setTimeout(function() {
             $this.fetchData();
-          }, 10000);
+          }, 15000);
         } else {
           App.ui.notify(App.i18n.get("Cannot fetch deploys from Netlify! Try again later."), "danger");
         }

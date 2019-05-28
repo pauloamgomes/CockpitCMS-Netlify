@@ -18,7 +18,13 @@ if (COCKPIT_ADMIN && !COCKPIT_API_REQUEST) {
         return [];
       }
 
-      $url = $settings['api_url'] . '/sites/' . $settings['site_id'] . '/deploys' . '?access_token=' . $settings['access_token'];
+      if (isset($settings['limit'])) {
+        $limit = $settings['limit'];
+      }
+
+      $url = $settings['api_url'] . '/sites/' . $settings['site_id'] . '/deploys';
+      $url .= '?access_token=' . $settings['access_token'];
+      $url .= "&per_page={$limit}";
 
       if (!empty($settings['branch'])) {
         $url .= '&branch=' . $settings['branch'];
@@ -31,7 +37,7 @@ if (COCKPIT_ADMIN && !COCKPIT_API_REQUEST) {
       $ch = curl_init($url);
       curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
       curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-      curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+      curl_setopt($ch, CURLOPT_TIMEOUT, 20);
       curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
       curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);

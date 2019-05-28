@@ -20,9 +20,11 @@ netlify:
   site_id: <site-id>
   access_token: <access-token>
   branch: <branch-name>
+  limit: 10
 ```
 
 Branch is optional, if provided API will return only deploys for that branch.
+Limit is optional, if not provided it will be used a default of 50 and it is used for the number of builds to retrieve (in some cases a long number can result in timeout).
 
 ### Permissions
 
