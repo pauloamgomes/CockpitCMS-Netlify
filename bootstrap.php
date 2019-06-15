@@ -98,3 +98,10 @@ if (COCKPIT_ADMIN && !COCKPIT_API_REQUEST) {
   // Include admin.
   include_once __DIR__ . '/admin.php';
 }
+
+// Include REST API files.
+if (COCKPIT_API_REQUEST) {
+  $this->on('cockpit.rest.init', function ($routes) {
+    $routes['netlify'] = 'Netlify\\Controller\\RestApi';
+  });
+}
